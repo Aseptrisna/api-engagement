@@ -15,6 +15,7 @@ class ProctoringController {
     async getLatestData(req, res) {
         try {
             const data = await ProctoringService.getLatestData();
+            console.log(data)
             res.json(data);
         } catch (error) {
             res.status(500).json({ message: "Internal Server Error" });

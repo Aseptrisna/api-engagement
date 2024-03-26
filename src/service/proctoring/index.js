@@ -20,7 +20,7 @@ class ProctoringService {
     async getLatestData() {
         try {
             // Mengambil data terbaru dengan mengurutkan berdasarkan createdAt dalam urutan menurun
-            const latestData = await model.find().sort({ createdAt: -1 });
+            const latestData = await model.find().sort({ _id: -1 }).limit(1);
             return latestData[0];
         } catch (error) {
             console.error("Error:", error);
