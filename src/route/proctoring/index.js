@@ -10,5 +10,5 @@ router.put('/:id', ProctoringController.updateProctoringData);
 router.delete('/:id', ProctoringController.deleteProctoringData);
 
 router.get('/row/image', ProctoringController.getLatestData);
-
+router.get('/row/result', ProctoringController.getAllProctoringResult);
 module.exports = router;

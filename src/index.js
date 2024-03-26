@@ -44,6 +44,7 @@ app.use(morgan("dev"));
 // Serve files from 'FILE' directory
 // app.use("/file/", express.static(process.env.FILE));
 app.use(express.static(path.join(`${process.env.FILE}`)));
+app.use("/proc",express.static(path.join(`${process.env.PROC}`)));
 
 // Define routes
 app.use("/v1", routes);
