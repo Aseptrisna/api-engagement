@@ -1,4 +1,5 @@
 const ProctoringData = require('../../model/proctoring_model');
+const model = require('../../model/mdl_proctoring_face_images');
 
 class ProctoringService {
     async getAllProctoringData(page = 1, pageSize = 10) {
@@ -13,6 +14,17 @@ class ProctoringService {
         } catch (error) {
             console.error("Error fetching proctoring data:", error);
             return { status: false, code: 500, message: "Internal Server Error" };
+        }
+    }
+
+    async getLatestData() {
+        try {
+            // Mengambil data terbaru dengan mengurutkan berdasarkan createdAt dalam urutan menurun
+            const latestData = await model.findOne().sort({ createdAt: -1 });
+            return latestData;
+        } catch (error) {
+            console.error("Error:", error);
+            throw error;
         }
     }
 

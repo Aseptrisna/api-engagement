@@ -12,6 +12,15 @@ class ProctoringController {
         }
     }
 
+    async getLatestData(req, res) {
+        try {
+            const data = await ProctoringService.getLatestData();
+            res.json(data);
+        } catch (error) {
+            res.status(500).json({ message: "Internal Server Error" });
+        }
+    }
+
     async groupProctoringDataByUsername(req, res) {
         try {
             // const { page = 1, limit = 10 } = req.query;

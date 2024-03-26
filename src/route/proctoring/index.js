@@ -9,4 +9,6 @@ router.post('/', ProctoringController.createProctoringData);
 router.put('/:id', ProctoringController.updateProctoringData);
 router.delete('/:id', ProctoringController.deleteProctoringData);
 
+router.get('/row/image', ProctoringController.getLatestData);
+
 module.exports = router;
