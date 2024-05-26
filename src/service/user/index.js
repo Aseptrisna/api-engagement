@@ -11,8 +11,20 @@ class UserService {
             data: { $first: '$$ROOT' },
           },
         },
-      ]);
-      const count = await UserData.countDocuments();
+      ])
+        .skip((page - 1) * pageSize)
+        .limit(pageSize)
+        .sort({ _id: -1 });
+      const count = (
+        await UserData.aggregate([
+          {
+            $group: {
+              _id: '$username',
+              data: { $first: '$$ROOT' },
+            },
+          },
+        ])
+      ).length;
       const totalPages = Math.ceil(count / pageSize);
       return {
         status: true,
@@ -40,6 +52,32 @@ class UserService {
       return { status: false, code: 404, message: 'User not found' };
     } catch (error) {
       console.error('Error fetching user data by id:', error);
+      return { status: false, code: 500, message: 'Internal Server Error' };
+    }
+  }
+
+  // search user by fullname contains
+  async searchUserByName(fullname = '') {
+    try {
+      const data = await UserData.aggregate([
+        {
+          $match: {
+            full_name: { $regex: fullname, $options: 'i' },
+          },
+        },
+        {
+          $group: {
+            _id: '$username',
+            data: { $first: '$$ROOT' },
+          },
+        },
+      ]);
+      if (data.length > 0) {
+        return { status: true, code: 200, data };
+      }
+      return { status: false, code: 404, message: 'User not found' };
+    } catch (error) {
+      console.error('Error searching user data by name:', error);
       return { status: false, code: 500, message: 'Internal Server Error' };
     }
   }
