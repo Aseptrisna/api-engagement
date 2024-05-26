@@ -4,10 +4,14 @@ class UserService {
   // GET ALL USERS
   async getAllUsers(page = 1, pageSize = 10) {
     try {
-      const data = await UserData.find({})
-        .sort({ _id: -1 })
-        .limit(pageSize * 1)
-        .skip((page - 1) * pageSize);
+      const data = await UserData.aggregate([
+        {
+          $group: {
+            _id: '$username',
+            data: { $first: '$$ROOT' },
+          },
+        },
+      ]);
       const count = await UserData.countDocuments();
       const totalPages = Math.ceil(count / pageSize);
       return {
