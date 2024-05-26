@@ -1,6 +1,6 @@
-const ProctoringData = require("../../model/proctoring_model");
-const model = require("../../model/mdl_proctoring_face_images");
-const result = require("../../model/model_result");
+const ProctoringData = require('../../model/proctoring_model');
+const model = require('../../model/mdl_proctoring_face_images');
+const result = require('../../model/model_result');
 
 class ProctoringService {
   async getAllProctoringData(page = 1, pageSize = 10) {
@@ -14,15 +14,15 @@ class ProctoringService {
       return {
         status: true,
         code: 200,
-        message: "Proctoring data retrieved successfully",
+        message: 'Proctoring data retrieved successfully',
         data,
         totalItems: count,
         totalPages,
         currentPage: page,
       };
     } catch (error) {
-      console.error("Error fetching proctoring data:", error);
-      return { status: false, code: 500, message: "Internal Server Error" };
+      console.error('Error fetching proctoring data:', error);
+      return { status: false, code: 500, message: 'Internal Server Error' };
     }
   }
 
@@ -38,15 +38,15 @@ class ProctoringService {
       return {
         status: true,
         code: 200,
-        message: "Proctoring data retrieved successfully",
+        message: 'Proctoring data retrieved successfully',
         data,
         totalItems: count,
         totalPages,
         currentPage: page,
       };
     } catch (error) {
-      console.error("Error fetching proctoring data:", error);
-      return { status: false, code: 500, message: "Internal Server Error" };
+      console.error('Error fetching proctoring data:', error);
+      return { status: false, code: 500, message: 'Internal Server Error' };
     }
   }
 
@@ -56,7 +56,7 @@ class ProctoringService {
       const latestData = await model.find().sort({ _id: -1 }).limit(1);
       return latestData[0];
     } catch (error) {
-      console.error("Error:", error);
+      console.error('Error:', error);
       throw error;
     }
   }
@@ -66,8 +66,8 @@ class ProctoringService {
       const groupedData = await ProctoringData.aggregate([
         {
           $group: {
-            _id: "$username",
-            data: { $first: "$$ROOT" },
+            _id: '$username',
+            data: { $first: '$$ROOT' },
           },
         },
       ]);
@@ -75,12 +75,12 @@ class ProctoringService {
       return {
         status: true,
         code: 200,
-        message: "Proctoring data grouped by username successfully",
+        message: 'Proctoring data grouped by username successfully',
         data: groupedData,
       };
     } catch (error) {
-      console.error("Error grouping proctoring data by username:", error);
-      return { status: false, code: 500, message: "Internal Server Error" };
+      console.error('Error grouping proctoring data by username:', error);
+      return { status: false, code: 500, message: 'Internal Server Error' };
     }
   }
 
@@ -91,13 +91,13 @@ class ProctoringService {
         return {
           status: false,
           code: 404,
-          message: "Proctoring data not found",
+          message: 'Proctoring data not found',
         };
       }
       return { status: true, code: 200, data };
     } catch (error) {
-      console.error("Error fetching proctoring data by ID:", error);
-      return { status: false, code: 500, message: "Internal Server Error" };
+      console.error('Error fetching proctoring data by ID:', error);
+      return { status: false, code: 500, message: 'Internal Server Error' };
     }
   }
 
@@ -107,12 +107,12 @@ class ProctoringService {
       return {
         status: true,
         code: 201,
-        message: "Proctoring data created successfully",
+        message: 'Proctoring data created successfully',
         newData,
       };
     } catch (error) {
-      console.error("Error creating proctoring data:", error);
-      return { status: false, code: 500, message: "Internal Server Error" };
+      console.error('Error creating proctoring data:', error);
+      return { status: false, code: 500, message: 'Internal Server Error' };
     }
   }
 
@@ -125,18 +125,18 @@ class ProctoringService {
         return {
           status: false,
           code: 404,
-          message: "Proctoring data not found",
+          message: 'Proctoring data not found',
         };
       }
       return {
         status: true,
         code: 200,
-        message: "Proctoring data updated successfully",
+        message: 'Proctoring data updated successfully',
         updatedData,
       };
     } catch (error) {
-      console.error("Error updating proctoring data:", error);
-      return { status: false, code: 500, message: "Internal Server Error" };
+      console.error('Error updating proctoring data:', error);
+      return { status: false, code: 500, message: 'Internal Server Error' };
     }
   }
 
@@ -147,17 +147,17 @@ class ProctoringService {
         return {
           status: false,
           code: 404,
-          message: "Proctoring data not found",
+          message: 'Proctoring data not found',
         };
       }
       return {
         status: true,
         code: 200,
-        message: "Proctoring data deleted successfully",
+        message: 'Proctoring data deleted successfully',
       };
     } catch (error) {
-      console.error("Error deleting proctoring data:", error);
-      return { status: false, code: 500, message: "Internal Server Error" };
+      console.error('Error deleting proctoring data:', error);
+      return { status: false, code: 500, message: 'Internal Server Error' };
     }
   }
 }
