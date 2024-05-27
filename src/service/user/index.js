@@ -43,9 +43,21 @@ class UserService {
   }
 
   // GET USER BY ID
-  async getUserById(id) {
+  async getUserById(id = '') {
     try {
-      const data = await UserData.findById(id);
+      const data = await UserData.aggregate([
+        {
+          $match: {
+            username: id,
+          },
+        },
+        {
+          $group: {
+            _id: '$username',
+            data: { $first: '$$ROOT' },
+          },
+        },
+      ]);
       if (data) {
         return { status: true, code: 200, data };
       }
