@@ -59,7 +59,7 @@ class UserService {
         },
       ]);
       if (data) {
-        return { status: true, code: 200, data };
+        return { status: true, code: 200, data: data[0] };
       }
       return { status: false, code: 404, message: 'User not found' };
     } catch (error) {
