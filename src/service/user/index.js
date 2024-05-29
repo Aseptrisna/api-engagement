@@ -13,8 +13,7 @@ class UserService {
         },
       ])
         .skip((page - 1) * pageSize)
-        .limit(pageSize)
-        .sort({ _id: -1 });
+        .limit(pageSize);
       const count = (
         await UserData.aggregate([
           {

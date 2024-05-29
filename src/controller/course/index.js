@@ -12,6 +12,18 @@ class CourseController {
       res.status(result.code).json({ message: result.message });
     }
   }
+
+  async getTopicsCourse(req, res) {
+    const { username, course } = req.params;
+
+    const result = await CourseService.getTopicsCourse(username, course);
+
+    if (result.status) {
+      res.status(result.code).json(result);
+    } else {
+      res.status(result.code).json({ message: result.message });
+    }
+  }
 }
 
 module.exports = new CourseController();

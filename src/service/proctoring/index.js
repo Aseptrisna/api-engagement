@@ -86,7 +86,10 @@ class ProctoringService {
 
   async getProctoringDataById(id) {
     try {
-      const data = await ProctoringData.find({ username: id });
+      const data = await ProctoringData.find({ username: id }).limit(20);
+      const countLength = await ProctoringData.find({
+        username: id,
+      }).countDocuments();
       if (!data) {
         return {
           status: false,
@@ -94,7 +97,7 @@ class ProctoringService {
           message: 'Proctoring data not found',
         };
       }
-      return { status: true, code: 200, data };
+      return { status: true, code: 200, data, totalItems: countLength };
     } catch (error) {
       console.error('Error fetching proctoring data by ID:', error);
       return { status: false, code: 500, message: 'Internal Server Error' };
