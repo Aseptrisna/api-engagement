@@ -7,6 +7,7 @@ const users = require('./user');
 const course = require('./course');
 const cleaning = require('./cleaning');
 const expression = require('./expression');
+const engagement = require('./engagement');
 
 router.use('/proctoring', proctoring);
 router.use('/quiz', quiz);
@@ -14,5 +15,6 @@ router.use('/users', users);
 router.use('/course', course);
 router.use('/cleaning', cleaning);
 router.use('/expression', expression);
+router.use('/engagement', engagement);
 
 module.exports = router;
