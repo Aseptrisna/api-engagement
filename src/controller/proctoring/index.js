@@ -1,7 +1,6 @@
-const ProctoringService = require("../../service/proctoring");
+const ProctoringService = require('../../service/proctoring');
 
 class ProctoringController {
-  
   async getAllProctoringData(req, res) {
     const { page, pageSize } = req.query;
     const result = await ProctoringService.getAllProctoringData(
@@ -33,7 +32,7 @@ class ProctoringController {
       const data = await ProctoringService.getLatestData();
       res.json(data);
     } catch (error) {
-      res.status(500).json({ message: "Internal Server Error" });
+      res.status(500).json({ message: 'Internal Server Error' });
     }
   }
 
@@ -49,15 +48,15 @@ class ProctoringController {
         res.status(result.code).json({ message: result.message });
       }
     } catch (error) {
-      console.error("Error grouping proctoring data by username:", error);
-      res.status(500).json({ message: "Internal Server Error" });
+      console.error('Error grouping proctoring data by username:', error);
+      res.status(500).json({ message: 'Internal Server Error' });
     }
   }
 
   async getProctoringDataById(req, res) {
     const result = await ProctoringService.getProctoringDataById(req.params.id);
     if (result.status) {
-      res.status(result.code).json(result.data);
+      res.status(result.code).json(result);
     } else {
       res.status(result.code).json({ message: result.message });
     }
