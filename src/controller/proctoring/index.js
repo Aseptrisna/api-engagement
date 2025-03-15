@@ -1,6 +1,7 @@
 const ProctoringService = require("../../service/proctoring");
 
 class ProctoringController {
+  
   async getAllProctoringData(req, res) {
     const { page, pageSize } = req.query;
     const result = await ProctoringService.getAllProctoringData(

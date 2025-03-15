@@ -9,6 +9,7 @@ class ProctoringService {
         .sort({ _id: -1 })
         .limit(pageSize * 1)
         .skip((page - 1) * pageSize);
+      
       const count = await ProctoringData.countDocuments();
       const totalPages = Math.ceil(count / pageSize);
       return {
